@@ -1,0 +1,3 @@
+DeepSeek-V4在2026年4月24日发布，发布之后之前的模型名（deepseek-chat、deepseek-reasoner）还可以使用3个月，保留至2026年7月24日，之后大家需要切换为新的模型名(deepseek-v4-flash、deepseek-v4-pro)。
+
+那后续DeepSeek的官方更新, 大家请以官方文档为准, 具体文档链接: https://api-docs.deepseek.com/zh-cn/
