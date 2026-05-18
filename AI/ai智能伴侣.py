@@ -12,6 +12,10 @@ import json
 
 print("------------>重新执行文件")
 
+# 【新增】获取当前脚本所在的目录，并拼接出 sessions 的绝对路径
+BASE_DIR = os.path.dirname(__file__)
+SESSIONS_DIR = os.path.join(BASE_DIR, "sessions")
+
 #设置页面配置项
 st.set_page_config(
     page_title="AI智能伴侣",
@@ -35,11 +39,12 @@ def save_session():
             "messages": st.session_state.messages
         }
         # 创建seesions 目录不存在则创建
-        if not os.path.exists("sessions"):
-            os.mkdir("sessions")
+        if not os.path.exists(SESSIONS_DIR):
+            os.mkdir(SESSIONS_DIR)
 
         # 保存会话数据
-        with open("sessions/%s.json" % st.session_state.current_session, "w", encoding="utf-8") as f:
+        file_path = os.path.join(SESSIONS_DIR, f"{st.session_state.current_session}.json")
+        with open(file_path, "w", encoding="utf-8") as f:
             json.dump(session_data, f, ensure_ascii=False, indent=2)
 
 #生成会话标识的函数
@@ -51,8 +56,8 @@ def generate_session_id():
 def load_sessions():
     session_list = []
     # 加载sessions目录下的所有会话文件
-    if os.path.exists("sessions"):
-        for file in os.listdir("sessions"):
+    if os.path.exists(SESSIONS_DIR):
+        for file in os.listdir(SESSIONS_DIR):
             if file.endswith(".json"):
                 session_list.append(file[:-5])
     session_list.sort(reverse=True)      #会话列表,降序排序
@@ -61,8 +66,10 @@ def load_sessions():
 #加载指定会话信息
 def load_session(session_id):
     try:
-        if os.path.exists("sessions/%s.json" % session_id):
-            with open("sessions/%s.json" % session_id, "r", encoding="utf-8") as f:
+        # 使用绝对路径拼接
+        file_path = os.path.join(SESSIONS_DIR, f"{session_id}.json")
+        if os.path.exists(file_path):
+            with open(file_path, "r", encoding="utf-8") as f:
                 session_data = json.load(f)
                 st.session_state.nick_name = session_data["nick_name"]
                 st.session_state.nature = session_data["nature"]
@@ -74,8 +81,10 @@ def load_session(session_id):
 #删除会话信息
 def delete_session(session_id):
     try:
-        if os.path.exists("sessions/%s.json" % session_id):
-            os.remove("sessions/%s.json" % session_id)   #删除文件
+        # 使用绝对路径拼接
+        file_path = os.path.join(SESSIONS_DIR, f"{session_id}.json")
+        if os.path.exists(file_path):
+            os.remove(file_path)   #删除文件
             #如果删除的是当前会话，则重新生成会话标识
             if session_id == st.session_state.current_session:
                 st.session_state.messages = []
