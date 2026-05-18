@@ -104,7 +104,10 @@ if "current_session" not in st.session_state:
 st.title("AI智能伴侣")
 
 # 配置logo
-st.logo("resources\可爱AI智能伴侣logo设计1.png")
+logo_path = os.path.join(os.path.dirname(__file__), "resources", "可爱AI智能伴侣logo设计1.png")
+if os.path.exists(logo_path):
+    st.logo(logo_path)
+
 
 # 左侧的侧边栏
 # st.sidebar.subheader("伴侣信息")
