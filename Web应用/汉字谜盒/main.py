@@ -8,14 +8,13 @@ from datetime import datetime
 import json
 import logging
 
+
 # 配置日志基本信息
 # astime 参数表示是否使用时间戳，默认为True levelname表示是否使用日志级别名称，默认为True, filename为日志文件名称, message 为日志内容
 logging.basicConfig(
     level=logging.INFO,  # 日志级别
     format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s"    # 日志格式
 )
-
-
 
 # 创建FastAPI的实例
 app = FastAPI(title="汉字谜盒")
