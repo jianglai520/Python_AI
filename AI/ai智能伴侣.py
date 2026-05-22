@@ -6,13 +6,12 @@
 import streamlit as st
 import os
 from openai import OpenAI
-from streamlit import sidebar, session_state
 from datetime import datetime
 import json
 
 print("------------>重新执行文件")
 
-# 【新增】获取当前脚本所在的目录，并拼接出 sessions 的绝对路径
+# 获取当前脚本所在的目录，并拼接出 sessions 的绝对路径
 BASE_DIR = os.path.dirname(__file__)
 SESSIONS_DIR = os.path.join(BASE_DIR, "sessions")
 
