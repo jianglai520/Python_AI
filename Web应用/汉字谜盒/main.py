@@ -168,7 +168,7 @@ def chat(request: CharRequest):
         model="deepseek-chat",
         messages=messages,
         stream=False,
-        temperature=1.5,  # 温度系数, 越大模型越 deterministic
+        temperature=1.5,  # 温度系数, 越大模型越 随机/创造性越强
     )
 
     # 4.获取相应的数据
